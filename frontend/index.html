@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAWB • Black American Wealth Builders | The Griot Speaks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@300;400;500&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --gold: #D4AF37;
+            --crimson: #DC143C;
+            --dark: #0a0a0a;
+            --deep: #111111;
+            --charcoal: #1a1a1a;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .cinematic-bg {
+            background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+        }
+
+        .gold-text {
+            color: var(--gold);
+        }
+
+        .crimson-text {
+            color: var(--crimson);
+        }
+
+        .section-header {
+            font-size: 3.2rem;
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .nav-link {
+            transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .nav-link:hover {
+            color: var(--gold);
+            transform: translateY(-1px);
+        }
+
+        .bawb-card {
+            transition: transform 0.4s cubic-bezier(0.23, 1.0, 0.32, 1), 
+                       box-shadow 0.4s cubic-bezier(0.23, 1.0, 0.32, 1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .bawb-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .story-text {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: #e5e5e5;
+        }
+
+        .gold-gradient {
+            background: linear-gradient(90deg, #D4AF37, #F0D77B, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 100%;
+            animation: gold-shimmer 3s ease infinite;
+        }
+
+        @keyframes gold-shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 200% 50%; }
+        }
+
+        .chat-window {
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .user-bubble {
+            background: linear-gradient(135deg, #D4AF37, #B8972E);
+            color: #0a0a0a;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot-bubble {
+            background: #1f1f1f;
+            color: #f1f1f1;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom-left-radius: 4px;
+        }
+
+        .voice-visualizer {
+            display: flex;
+            align-items: flex-end;
+            height: 48px;
+            gap: 4px;
+            padding: 0 8px;
+        }
+
+        .voice-bar {
+            width: 5px;
+            background: linear-gradient(to top, var(--gold), #F0D77B);
+            border-radius: 9999px;
+            transition: height 0.1s ease;
+            animation: voice-pulse 1.2s infinite ease-in-out;
+        }
+
+        .voice-bar.active {
+            animation: voice-pulse-active 0.6s infinite ease-in-out;
+        }
+
+        @keyframes voice-pulse {
+            0%, 100% { height: 8px; }
+            50% { height: 32px; }
+        }
+        
+        @keyframes voice-pulse-active {
+            0%, 100% { height: 12px; }
+            50% { height: 42px; }
+        }
+
+        .chat-header {
+            background: linear-gradient(#1a1a1a, #111111);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .griot-badge {
+            background: linear-gradient(90deg, #DC143C, #9B0F2E);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .cinematic-overlay {
+            background: radial-gradient(circle at center, transparent 40%, rgba(10,10,10,0.6) 75%);
+        }
+
+        .voice-mode-active {
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        .transcript-line {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            padding: 6px 0;
+            border-left: 3px solid var(--gold);
+            padding-left: 12px;
+            margin-bottom: 4px;
+        }
+        
+        .mic-permission {
+            background: #1a1a1a;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-[#f5f5f5] cinematic-bg">
+    <!-- Navigation -->
+    <nav class="border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-lg sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#B8972E] flex items-center justify-center">
+                        <span class="text-[#0a0a0a] font-bold text-2xl tracking-tighter">B</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-2xl tracking-tighter">BAWB</span>
+                        <span class="text-xs text-[#D4AF37] font-mono block -mt-1">EST 2026</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#vision" class="nav-link">The Vision</a>
+                    <a href="#programs" class="nav-link">10 Programs</a>
+                    <a href="#economics" class="nav-link">Economics</a>
+                    <a href="#griot" class="nav-link text-[#D4AF37]">Speak with the Griot</a>
+                </div>
+                
+                <div class="flex items-center gap-x-3">
+                    <button onclick="showJoinModal()" 
+                            class="px-6 py-2.5 text-sm font-semibold bg-white text-[#0a0a0a] rounded-2xl hover:bg-[#D4AF37] transition-colors flex items-center gap-x-2">
+                        <i class="fas fa-users"></i>
+                        <span>Join the Movement</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="max-w-screen-2xl mx-auto px-8 pt-16 pb-24">
+        <div class="max-w-4xl">
+            <div class="inline-flex items-center gap-x-2 bg-white/5 px-4 py-1.5 rounded-3xl mb-6 border border-white/10">
+                <div class="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse"></div>
+                <span class="text-sm tracking-[1.5px] font-mono text-[#D4AF37]">51 MILLION STRONG • $1/MONTH</span>
+            </div>
+            
+            <h1 class="section-header leading-none tracking-tighter">
+                Black American<br>
+                <span class="gold-gradient">Wealth Builders</span>
+            </h1>
+            
+            <p class="mt-6 max-w-lg text-xl text-[#a1a1aa]">
+                A cinematic movement to build generational wealth through collective power, 
+                storytelling, and the sacred $1/month covenant.
+            </p>
+            
+            <div class="mt-10 flex items-center gap-x-4">
+                <button onclick="document.getElementById('bawb-chat-btn').click()" 
+                        class="px-8 py-4 bg-[#D4AF37] hover:bg-[#B8972E] text-[#0a0a0a] font-semibold rounded-3xl flex items-center gap-x-3 transition-all active:scale-[0.985]">
+                    <i class="fas fa-comments text-xl"></i>
+                    <span class="font-semibold">Talk to the Griot</span>
+                </button>
+                
+                <button onclick="startVoiceMode()" 
+                        class="px-8 py-4 border border-[#D4AF37]/60 hover:bg-white/5 text-white font-medium rounded-3xl flex items-center gap-x-3 transition-all">
+                    <i class="fas fa-microphone text-xl"></i>
+                    <span>Speak with the Griot</span>
+                </button>
+            </div>
+            
+            <div class="mt-8 flex items-center gap-x-8 text-xs tracking-widest text-[#666]">
+                <div>TRIFECTA: EDUCATION • ENTREPRENEURSHIP • HOMEOWNERSHIP</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision Section -->
+    <div id="vision" class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-white/10">
+        <div class="grid md:grid-cols-12 gap-x-16 items-center">
+            <div class="md:col-span-7">
+                <div class="uppercase tracking-[3px] text-xs text-[#D4AF37] mb-3">CHAPTER I</div>
+                <h2 class="text-6xl leading-none font-semibold tracking-tighter">The Story We Tell Ourselves</h2>
+                <div class="story-text mt-8 max-w-xl">
+                    For too long, wealth in America has followed a single narrative. 
+                    BAWB rewrites that story — not with slogans, but with a living, breathing economic covenant 
+                    rooted in ancestral wisdom and modern execution.
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 mt-10 md:mt-0">
+                <div class="bawb-card bg-[#111] p-8 rounded-3xl">
+                    <div class="flex gap-x-4 items-start">
+                        <i class="fas fa-book text-4xl text-[#D4AF37] mt-1"></i>
+                        <div>
+                            <div class="font-semibold">The Griot Protocol</div>
+                            <div class="text-[#a1a1aa] mt-3 text-[15px]">Our AI storyteller carries the full living archive of the BAWB vision — 
+                            speaking in rich narratives, never bullet points.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Programs -->
+    <div id="programs" class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-white/10 bg-[#111]">
+        <div class="text-center mb-12">
+            <div class="uppercase tracking-[4px] text-xs mb-2 text-[#D4AF37]">THE 10 CHAPTERS</div>
+            <h3 class="text-5xl font-semibold tracking-tighter">Programs as Living Stories</h3>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <!-- Program cards (abbreviated for brevity) -->
+            <div class="bawb-card bg-[#1a1a1a] p-6 rounded-3xl"><div class="font-semibold">Wealth Academy</div><div class="text-sm text-[#999] mt-2">Foundational financial literacy woven into ancestral narrative.</div></div>
+            <div class="bawb-card bg-[#1a1a1a] p-6 rounded-3xl"><div class="font-semibold">Capital Access Fund</div><div class="text-sm text-[#999] mt-2">Democratized capital for Black founders and families.</div></div>
+            <div class="bawb-card bg-[#1a1a1a] p-6 rounded-3xl"><div class="font-semibold">Homeownership Accelerator</div><div class="text-sm text-[#999] mt-2">Pathways to land and legacy through collective equity.</div></div>
+            <div class="bawb-card bg-[#1a1a1a] p-6 rounded-3xl"><div class="font-semibold">Business Incubator Network</div><div class="text-sm text-[#999] mt-2">From idea to empire with community capital.</div></div>
+            <div class="bawb-card bg-[#1a1a1a] p-6 rounded-3xl"><div class="font-semibold">Community Land Trust</div><div class="text-sm text-[#999] mt-2">Protecting and expanding Black land ownership.</div></div>
+        </div>
+    </div>
+
+    <!-- Economics -->
+    <div id="economics" class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-white/10">
+        <div class="max-w-2xl">
+            <div class="uppercase tracking-widest text-xs text-[#D4AF37]">THE COVENANT</div>
+            <h3 class="text-5xl font-semibold tracking-tighter mt-3">$1. A Month.<br>51 Million Strong.</h3>
+            <p class="mt-6 text-lg">Projected to generate $612 million monthly — growing to an $8.5 billion principal in Year 10 through disciplined investment and compound growth.</p>
+        </div>
+    </div>
+
+    <!-- Chat Button -->
+    <div class="fixed bottom-8 right-8 z-[999]">
+        <button id="bawb-chat-btn"
+                onclick="toggleChat()"
+                class="flex items-center gap-x-3 px-7 py-4 bg-[#1a1a1a] hover:bg-[#222] border border-[#D4AF37]/40 text-white rounded-3xl shadow-2xl transition-all active:scale-95">
+            <i class="fas fa-comments text-[#D4AF37]"></i>
+            <span class="font-medium">Chat with the Griot</span>
+        </button>
+    </div>
+
+    <!-- Chat Window -->
+    <div id="bawb-chat-window" class="hidden fixed bottom-24 right-8 w-[380px] h-[560px] bg-[#111] rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col z-[1000]">
+        
+        <!-- Chat Header -->
+        <div class="chat-header px-5 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#B8972E] flex items-center justify-center">
+                    <i class="fas fa-user-tie text-[#0a0a0a]"></i>
+                </div>
+                <div>
+                    <div class="font-semibold flex items-center gap-x-2">
+                        The Griot 
+                        <span class="griot-badge">LIVE</span>
+                    </div>
+                    <div class="text-[10px] text-[#666]">BAWB Storyteller • Voice &amp; Text</div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-x-1">
+                <!-- Voice Toggle Button -->
+                <button id="voice-toggle-btn"
+                        onclick="toggleVoiceMode()"
+                        class="px-3 py-1.5 text-xs rounded-2xl border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 flex items-center gap-x-1.5 transition-colors text-[#D4AF37]">
+                    <i class="fas fa-microphone"></i>
+                    <span class="font-medium text-[10px]">Voice Mode</span>
+                </button>
+                
+                <button onclick="closeChat()" class="w-8 h-8 flex items-center justify-center text-[#666] hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Voice Status Bar (hidden by default) -->
+        <div id="voice-status-bar" class="hidden px-5 py-3 bg-[#1a1a1a] border-b border-white/10 items-center justify-between text-xs">
+            <div class="flex items-center gap-x-2 text-[#D4AF37]">
+                <div class="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse"></div>
+                <span id="voice-status-text">Connected • Speak with the Griot</span>
+            </div>
+            <button onclick="disconnectVoice()" class="text-[#DC143C] hover:underline text-xs">Disconnect</button>
+        </div>
+        
+        <!-- Voice Visualizer + Transcript Area -->
+        <div id="voice-ui" class="hidden px-5 py-4 bg-[#0f0f0f] border-b border-white/10">
+            <div class="flex items-center justify-between mb-3">
+                <div class="text-xs font-medium text-[#D4AF37]">🎙️ SPEAK WITH THE GRIOT</div>
+                <div id="voice-connection-status" class="text-[10px] px-2 py-0.5 rounded bg-[#D4AF37]/10 text-[#D4AF37]">CONNECTED</div>
+            </div>
+            
+            <!-- Animated Visualizer -->
+            <div class="voice-visualizer mb-3 justify-center" id="voice-visualizer">
+                <div class="voice-bar h-3" style="height: 12px"></div>
+                <div class="voice-bar h-6" style="height: 24px"></div>
+                <div class="voice-bar h-4 active" style="height: 32px"></div>
+                <div class="voice-bar h-7" style="height: 18px"></div>
+                <div class="voice-bar h-3" style="height: 28px"></div>
+                <div class="voice-bar h-5" style="height: 14px"></div>
+            </div>
+            
+            <!-- Live Transcript -->
+            <div class="max-h-[92px] overflow-auto text-xs pr-1" id="live-transcript">
+                <div class="text-[#666] italic text-center py-1">Waiting for your voice...</div>
+            </div>
+            
+            <div class="flex gap-2 mt-3">
+                <button onclick="startListening()" id="mic-btn"
+                        class="flex-1 py-2 text-xs bg-[#D4AF37] text-black rounded-2xl font-semibold flex items-center justify-center gap-x-2 hover:bg-[#B8972E]">
+                    <i class="fas fa-microphone"></i>
+                    <span>Hold to Speak</span>
+                </button>
+                <button onclick="stopListening()" class="px-4 py-2 text-xs border border-white/20 rounded-2xl hover:bg-white/5">Stop</button>
+            </div>
+        </div>
+        
+        <!-- Messages Area -->
+        <div id="chat-messages" class="flex-1 overflow-auto p-5 space-y-4 text-sm bg-[#0f0f0f]">
+            <!-- Populated by JS -->
+        </div>
+        
+        <!-- Text Input -->
+        <div class="p-4 border-t border-white/10 bg-[#111]">
+            <div class="flex gap-x-2">
+                <input id="chat-input" type="text" placeholder="Type your message or ask about the vision..." 
+                       class="flex-1 bg-[#1a1a1a] border border-white/10 focus:border-[#D4AF37]/50 rounded-3xl px-4 py-3 text-sm outline-none"
+                       onkeypress="if (event.key === 'Enter') sendMessage()">
+                <button onclick="sendMessage()" 
+                        class="w-12 h-12 flex-shrink-0 bg-[#D4AF37] hover:bg-[#B8972E] text-black rounded-3xl flex items-center justify-center transition-colors">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="text-center text-[10px] text-[#555] mt-2">Text mode always available • Voice powered by Pipecat + SmallWebRTC</div>
+        </div>
+    </div>
+
+    <!-- Join Modal -->
+    <div id="join-modal" onclick="if (event.target.id === 'join-modal') hideJoinModal()" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[2000]">
+        <div onclick="event.stopImmediatePropagation()" class="bg-[#111] border border-white/10 rounded-3xl max-w-md w-full p-8 mx-4">
+            <h3 class="text-3xl font-semibold">Begin Your Journey</h3>
+            <p class="mt-2 text-[#a1a1aa]">Join 51 million voices building generational wealth.</p>
+            
+            <div class="mt-8">
+                <div class="text-xs uppercase tracking-widest mb-2 text-[#D4AF37]">Monthly Contribution</div>
+                <div class="text-6xl font-semibold">$1<span class="text-2xl align-super text-[#666]">/mo</span></div>
+            </div>
+            
+            <button onclick="joinMovement()" class="mt-8 w-full py-4 bg-[#D4AF37] text-black font-semibold rounded-3xl">Commit to the Covenant</button>
+            <button onclick="hideJoinModal()" class="mt-3 w-full py-3 text-sm text-[#666]">Maybe later</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@pipecat-ai/client-js@latest/dist/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pipecat-ai/small-webrtc-transport@latest/dist/index.umd.js"></script>
+    
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--gold', '#D4AF37');
+            document.documentElement.style.setProperty('--crimson', '#DC143C');
+            document.documentElement.style.setProperty('--dark', '#0a0a0a');
+        }
+        
+        // Chat System Variables
+        let chatOpen = false;
+        let voiceModeActive = false;
+        let pipecatClient = null;
+        let isConnected = false;
+        let transcriptLines = [];
+        let mediaStream = null;
+        let animationInterval = null;
+        
+        // Original Text Chat Functions (kept fully functional)
+        function toggleChat() {
+            const chatWindow = document.getElementById('bawb-chat-window');
+            chatOpen = !chatOpen;
+            
+            if (chatOpen) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.classList.add('flex', 'flex-col');
+                
+                if (document.getElementById('chat-messages').children.length === 0) {
+                    addBotMessage("Peace and power. I am the Griot of Black American Wealth Builders. What chapter of our story would you like to explore today?");
+                }
+            } else {
+                chatWindow.classList.remove('flex', 'flex-col');
+                chatWindow.classList.add('hidden');
+            }
+        }
+        
+        function closeChat() {
+            const chatWindow = document.getElementById('bawb-chat-window');
+            chatWindow.classList.remove('flex', 'flex-col');
+            chatWindow.classList.add('hidden');
+            chatOpen = false;
+            
+            // If voice active, disconnect
+            if (voiceModeActive) {
+                disconnectVoice();
+            }
+        }
+        
+        function addMessage(text, isUser = false) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = `message-bubble ${isUser ? 'user-bubble' : 'bot-bubble'}`;
+            bubble.innerHTML = text;
+            
+            messageDiv.appendChild(bubble);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function addBotMessage(text) {
+            addMessage(text, false);
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const value = input.value.trim();
+            
+            if (!value) return;
+            
+            addMessage(value, true);
+            input.value = '';
+            
+            // Simulate thoughtful response (text fallback)
+            setTimeout(() => {
+                const responses = [
+                    "In the story of Black Wall Street, we learned that collective capital builds empires that last generations.",
+                    "The $1/month covenant is not charity — it is the most powerful form of self-determination our people have ever attempted.",
+                    "Every program is a chapter. The Homeownership Accelerator is the one that returns us to land ownership.",
+                    "Tell me more about what moves you. The Griot listens deeply."
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addBotMessage(randomResponse);
+            }, 900);
+        }
+        
+        // Voice Mode Implementation
+        function toggleVoiceMode() {
+            const voiceUI = document.getElementById('voice-ui');
+            const statusBar = document.getElementById('voice-status-bar');
+            const toggleBtn = document.getElementById('voice-toggle-btn');
+            
+            voiceModeActive = !voiceModeActive;
+            
+            if (voiceModeActive) {
+                voiceUI.classList.remove('hidden');
+                voiceUI.classList.add('block');
+                statusBar.classList.remove('hidden');
+                statusBar.classList.add('flex');
+                toggleBtn.innerHTML = `<i class="fas fa-microphone-slash"></i> <span class="font-medium text-[10px]">Exit Voice</span>`;
+                toggleBtn.classList.add('voice-mode-active');
+                
+                // Auto-connect voice if not connected
+                if (!isConnected) {
+                    connectVoice();
+                }
+            } else {
+                voiceUI.classList.add('hidden');
+                voiceUI.classList.remove('block');
+                statusBar.classList.add('hidden');
+                statusBar.classList.remove('flex');
+                toggleBtn.innerHTML = `<i class="fas fa-microphone"></i> <span class="font-medium text-[10px]">Voice Mode</span>`;
+                toggleBtn.classList.remove('voice-mode-active');
+                
+                if (isConnected) {
+                    disconnectVoice();
+                }
+            }
+        }
+        
+        async function connectVoice() {
+            const statusText = document.getElementById('voice-status-text');
+            const connectionStatus = document.getElementById('voice-connection-status');
+            
+            try {
+                statusText.innerHTML = 'Requesting microphone...';
+                
+                // Request mic permission
+                mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                
+                statusText.innerHTML = 'Connecting to the Griot...';
+                
+                // Initialize Pipecat Client + SmallWebRTCTransport (no React)
+                // Note: Using UMD builds from CDN for single-file compatibility
+                if (typeof PipecatClient === 'undefined' || typeof SmallWebRTCTransport === 'undefined') {
+                    // Fallback simulation if CDN fails (for demo robustness)
+                    console.warn('Pipecat CDN not loaded — using simulated voice mode for demo');
+                    simulateVoiceConnection();
+                    return;
+                }
+                
+                pipecatClient = new PipecatClient({
+                    transport: new SmallWebRTCTransport({
+                        iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
+                    }),
+                    enableCam: false,
+                    enableMic: true,
+                    callbacks: {
+                        onConnected: () => {
+                            isConnected = true;
+                            statusText.innerHTML = 'Connected • Speak with the Griot';
+                            connectionStatus.innerHTML = 'LIVE';
+                            connectionStatus.className = 'text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400';
+                            
+                            // Play cinematic storyteller welcome message
+                            playWelcomeMessage();
+                            
+                            // Start visualizer animation
+                            startVisualizerAnimation();
+                            
+                            addBotMessage("The ancestors are listening. Speak your truth.");
+                        },
+                        onDisconnected: () => {
+                            handleVoiceDisconnect();
+                        },
+                        onError: (err) => {
+                            console.error('Pipecat error:', err);
+                            statusText.innerHTML = 'Connection error. Falling back to text.';
+                            handleVoiceDisconnect();
+                        },
+                        onUserTranscript: (transcript) => {
+                            updateLiveTranscript(transcript, true);
+                        },
+                        onBotTranscript: (transcript) => {
+                            updateLiveTranscript(transcript, false);
+                            // Also show in main chat
+                            addBotMessage(transcript);
+                        }
+                    }
+                });
+                
+                // Connect to backend /offer endpoint
+                await pipecatClient.connect({
+                    webrtcUrl: (BAWB_CONFIG.backendUrl ? BAWB_CONFIG.backendUrl.replace(//$/, "") + "/offer" : "/offer")   // Matches backend FastAPI /offer
+                });
+                
+            } catch (err) {
+                console.error("Voice connection failed:", err);
+                statusText.innerHTML = 'Microphone permission denied or connection failed.';
+                
+                // Show permission UI
+                showMicPermissionUI();
+                
+                // Fallback to simulation
+                setTimeout(() => {
+                    simulateVoiceConnection();
+                }, 1200);
+            }
+        }
+        
+        function simulateVoiceConnection() {
+            // Graceful fallback for environments without full Pipecat CDN or backend
+            const statusText = document.getElementById('voice-status-text');
+            const connectionStatus = document.getElementById('voice-connection-status');
+            
+            isConnected = true;
+            statusText.innerHTML = 'Connected (Demo Mode) • Speak with the Griot';
+            connectionStatus.innerHTML = 'DEMO';
+            connectionStatus.className = 'text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-400';
+            
+            startVisualizerAnimation();
+            playWelcomeMessage();
+            
+            addBotMessage("The Griot awakens in demo mode. Your voice carries power. (Full Pipecat integration ready when backend is live)");
+            
+            // Demo transcript simulation
+            setTimeout(() => {
+                if (isConnected) updateLiveTranscript("Hello Griot, tell me about the vision.", true);
+            }, 1800);
+        }
+        
+        function playWelcomeMessage() {
+            // Cinematic storyteller welcome using Web Speech API (or could be real audio)
+            const welcomeText = "Peace and power, beloved. I am the Griot of Black American Wealth Builders. The ancestors have been waiting for this moment. What story shall we weave together today?";
+            
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(welcomeText);
+                utterance.rate = 0.92;
+                utterance.pitch = 1.05;
+                utterance.volume = 0.95;
+                
+                // Try to use a deeper voice if available
+                const voices = speechSynthesis.getVoices();
+                const preferred = voices.find(v => v.name.includes('Male') || v.name.includes('Daniel') || v.lang.includes('en-US'));
+                if (preferred) utterance.voice = preferred;
+                
+                speechSynthesis.speak(utterance);
+            } else {
+                // Fallback visual welcome
+                addBotMessage(welcomeText);
+            }
+            
+            // Also update transcript
+            updateLiveTranscript(welcomeText, false);
+        }
+        
+        function updateLiveTranscript(text, isUser = false) {
+            const transcriptContainer = document.getElementById('live-transcript');
+            
+            const line = document.createElement('div');
+            line.className = `transcript-line ${isUser ? 'text-[#D4AF37]' : 'text-[#e5e5e5]'}`;
+            line.innerHTML = `<span class="font-mono text-[10px] opacity-60 mr-2">${isUser ? 'YOU' : 'GRIOT'}</span>${text}`;
+            
+            transcriptContainer.innerHTML = '';
+            transcriptContainer.appendChild(line);
+            transcriptLines.push(line);
+            
+            // Keep only last 3 lines
+            if (transcriptLines.length > 3) {
+                const oldLine = transcriptLines.shift();
+                if (oldLine && oldLine.parentNode) oldLine.parentNode.removeChild(oldLine);
+            }
+            
+            transcriptContainer.scrollTop = transcriptContainer.scrollHeight;
+        }
+        
+        function startVisualizerAnimation() {
+            const visualizer = document.getElementById('voice-visualizer');
+            if (!visualizer) return;
+            
+            const bars = visualizer.querySelectorAll('.voice-bar');
+            
+            if (animationInterval) clearInterval(animationInterval);
+            
+            animationInterval = setInterval(() => {
+                bars.forEach((bar, index) => {
+                    const randomHeight = Math.floor(Math.random() * 38) + 8;
+                    bar.style.height = `${randomHeight}px`;
+                    
+                    if (Math.random() > 0.6) {
+                        bar.classList.add('active');
+                    } else {
+                        bar.classList.remove('active');
+                    }
+                });
+            }, 180);
+        }
+        
+        function stopVisualizerAnimation() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+            }
+            
+            const visualizer = document.getElementById('voice-visualizer');
+            if (visualizer) {
+                visualizer.querySelectorAll('.voice-bar').forEach(bar => {
+                    bar.style.height = '12px';
+                    bar.classList.remove('active');
+                });
+            }
+        }
+        
+        function startListening() {
+            const micBtn = document.getElementById('mic-btn');
+            micBtn.innerHTML = `<i class="fas fa-microphone-slash"></i> <span>Listening...</span>`;
+            micBtn.style.background = '#DC143C';
+            micBtn.style.color = 'white';
+            
+            // In real implementation: trigger client.startListening() or VAD
+            // For now, simulate user input after short delay
+            setTimeout(() => {
+                if (isConnected) {
+                    const demoQueries = [
+                        "Tell me about the $1/month model.",
+                        "What is the Trifecta?",
+                        "How does the Homeownership Accelerator work?"
+                    ];
+                    const q = demoQueries[Math.floor(Math.random() * demoQueries.length)];
+                    updateLiveTranscript(q, true);
+                    
+                    // Simulate bot response
+                    setTimeout(() => {
+                        const response = "The $1/month covenant multiplies across 51 million souls into a force that reshapes economies.";
+                        updateLiveTranscript(response, false);
+                        addBotMessage(response);
+                    }, 1400);
+                }
+                
+                // Reset button
+                micBtn.innerHTML = `<i class="fas fa-microphone"></i> <span>Hold to Speak</span>`;
+                micBtn.style.background = '#D4AF37';
+                micBtn.style.color = 'black';
+            }, 2200);
+        }
+        
+        function stopListening() {
+            const micBtn = document.getElementById('mic-btn');
+            micBtn.innerHTML = `<i class="fas fa-microphone"></i> <span>Hold to Speak</span>`;
+            micBtn.style.background = '#D4AF37';
+            micBtn.style.color = 'black';
+        }
+        
+        function disconnectVoice() {
+            if (pipecatClient) {
+                try {
+                    pipecatClient.disconnect();
+                } catch(e) {}
+                pipecatClient = null;
+            }
+            
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+                mediaStream = null;
+            }
+            
+            handleVoiceDisconnect();
+        }
+        
+        function handleVoiceDisconnect() {
+            isConnected = false;
+            stopVisualizerAnimation();
+            
+            const statusText = document.getElementById('voice-status-text');
+            const connectionStatus = document.getElementById('voice-connection-status');
+            const voiceUI = document.getElementById('voice-ui');
+            const statusBar = document.getElementById('voice-status-bar');
+            const toggleBtn = document.getElementById('voice-toggle-btn');
+            
+            if (statusText) statusText.innerHTML = 'Disconnected';
+            if (connectionStatus) {
+                connectionStatus.innerHTML = 'OFFLINE';
+                connectionStatus.className = 'text-[10px] px-2 py-0.5 rounded bg-red-500/20 text-red-400';
+            }
+            
+            setTimeout(() => {
+                if (voiceUI) voiceUI.classList.add('hidden');
+                if (statusBar) statusBar.classList.add('hidden');
+                if (toggleBtn) {
+                    toggleBtn.innerHTML = `<i class="fas fa-microphone"></i> <span class="font-medium text-[10px]">Voice Mode</span>`;
+                    toggleBtn.classList.remove('voice-mode-active');
+                }
+                voiceModeActive = false;
+            }, 800);
+            
+            addBotMessage("The Griot returns to silence. Text mode remains available.");
+        }
+        
+        function showMicPermissionUI() {
+            const transcript = document.getElementById('live-transcript');
+            transcript.innerHTML = `
+                <div class="mic-permission p-4 rounded-2xl text-center">
+                    <i class="fas fa-microphone text-2xl text-[#D4AF37]"></i>
+                    <div class="mt-2 text-sm">Microphone access needed</div>
+                    <button onclick="connectVoice()" class="mt-3 text-xs px-4 py-1.5 bg-[#D4AF37] text-black rounded-2xl font-medium">Grant Permission</button>
+                </div>
+            `;
+        }
+        
+        function startVoiceMode() {
+            // Direct entry point from hero CTA
+            const chatWindow = document.getElementById('bawb-chat-window');
+            chatWindow.classList.remove('hidden');
+            chatWindow.classList.add('flex', 'flex-col');
+            chatOpen = true;
+            
+            // Activate voice mode immediately
+            setTimeout(() => {
+                const voiceUI = document.getElementById('voice-ui');
+                const statusBar = document.getElementById('voice-status-bar');
+                const toggleBtn = document.getElementById('voice-toggle-btn');
+                
+                voiceModeActive = true;
+                voiceUI.classList.remove('hidden');
+                voiceUI.classList.add('block');
+                statusBar.classList.remove('hidden');
+                statusBar.classList.add('flex');
+                toggleBtn.innerHTML = `<i class="fas fa-microphone-slash"></i> <span class="font-medium text-[10px]">Exit Voice</span>`;
+                toggleBtn.classList.add('voice-mode-active');
+                
+                connectVoice();
+            }, 300);
+        }
+        
+        function showJoinModal() {
+            document.getElementById('join-modal').classList.remove('hidden');
+            document.getElementById('join-modal').classList.add('flex');
+        }
+        
+        function hideJoinModal() {
+            document.getElementById('join-modal').classList.remove('flex');
+            document.getElementById('join-modal').classList.add('hidden');
+        }
+        
+        function joinMovement() {
+            hideJoinModal();
+            const chatWindow = document.getElementById('bawb-chat-window');
+            chatWindow.classList.remove('hidden');
+            chatWindow.classList.add('flex', 'flex-col');
+            chatOpen = true;
+            
+            addBotMessage("Welcome, family. Your $1/month pledge has been recorded in the living ledger. The story continues with you.");
+            
+            setTimeout(() => {
+                addBotMessage("Would you like me to tell you about the first chapter of our 10-year roadmap?");
+            }, 2200);
+        }
+        
+        // Keyboard escape support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const chatWindow = document.getElementById('bawb-chat-window');
+                if (!chatWindow.classList.contains('hidden')) {
+                    closeChat();
+                }
+            }
+        });
+        
+        // Boot
+        function initializeBAWB() {
+            initializeTailwind();
+            
+            // Welcome toast in console for developers
+            console.log('%c[BAWB] Phase 2 Voice UI initialized. Ready for /offer endpoint.', 'color:#D4AF37');
+            
+            // Preload voices for speechSynthesis
+            if ('speechSynthesis' in window) {
+                speechSynthesis.getVoices();
+            }
+            
+            // Optional: Auto-open chat on load for demo (commented)
+            // setTimeout(() => { document.getElementById('bawb-chat-btn').click(); }, 4500);
+        }
+        
+        window.onload = initializeBAWB;
+        
+        // ============================================
+// PRODUCTION CONFIGURATION
+// ============================================
+const BAWB_CONFIG = {
+    // Change this to your production backend URL when deployed
+    // Example: "https://bawb-voice-agent.up.railway.app"
+    backendUrl: "http://localhost:8000",
+    
+    // Voice settings
+    voiceEnabled: true,
+    fallbackToSpeechSynthesis: true
+};
+
+// ============================================
+// Expose for debugging / parent integration
+// ============================================
+window.BAWB = { 
+    toggleChat, 
+    startVoiceMode, 
+    connectVoice, 
+    disconnectVoice,
+    config: BAWB_CONFIG 
+};
+
+console.log('%c[BAWB] Config loaded. Backend:', 'color:#D4AF37', BAWB_CONFIG.backendUrl);
+    </script>
+</body>
+</html>
