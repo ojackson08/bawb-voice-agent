@@ -1,5 +1,4 @@
-pipecat-ai[grok]
+pipecat-ai[grok,webrtc]
 fastapi
 uvicorn[standard]
 python-dotenv
-aiohttp# redeploy trigger
